@@ -1,6 +1,7 @@
 package web;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,13 @@ import org.eclipse.jetty.server.ResponseWriter;
 @WebServlet(name= "Hello",urlPatterns= "/hello")
 public class HelloWeb extends HttpServlet{
 	
+	private ArrayList<String> users= new ArrayList<String>();
+	
+	
+	@Override
+	public void init() throws ServletException {
+		super.init();
+	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,5 +30,19 @@ public class HelloWeb extends HttpServlet{
 		view.forward(req, resp);
 	}
 	
-	
+	 @Override
+	 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		 PrintWriter writer = resp.getWriter();
+	     String nameRecu = req.getParameter("name");
+
+	     users.add(nameRecu);
+	     /*
+	     for (String s: users) {
+	     	writer.println("Salut " + s);
+	     }*/
+	     
+	     req.setAttribute("listUser",users);
+	     RequestDispatcher view = req.getRequestDispatcher("salutUsers.jsp");
+	     view.forward(req,resp);
+	 }
 }
