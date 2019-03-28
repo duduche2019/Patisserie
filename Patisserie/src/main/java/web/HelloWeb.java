@@ -2,6 +2,7 @@ package web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,12 +15,13 @@ import org.eclipse.jetty.server.ResponseWriter;
 @WebServlet(name= "Hello",urlPatterns= "/hello")
 public class HelloWeb extends HttpServlet{
 	
-	private ArrayList<String> users= new ArrayList<String>();
+	private ArrayList<String> users ;
 	
 	
 	@Override
 	public void init() throws ServletException {
 		super.init();
+		users= new ArrayList<String>();
 	}
 	
 	@Override
